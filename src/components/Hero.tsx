@@ -5,20 +5,30 @@ import { heroStats, imageSet, whatsappHref } from "@/lib/content";
 import { motion, AnimatePresence } from "framer-motion";
 import { Counter } from "@/components/Counter";
 import { useState, useEffect } from "react";
-import type { SanityHero } from "@/lib/sanity";
-
-const staticSlides = [
-  { url: imageSet.hero, alt: "Rasvaad Catering" },
-  { url: imageSet.workA, alt: "Rasvaad Catering" },
-  { url: imageSet.workB, alt: "Rasvaad Catering" },
-];
+import type { SanityHero, SanitySiteImages } from "@/lib/sanity";
 
 interface Props {
   sanityData?: SanityHero | null;
+  images?: SanitySiteImages | null;
 }
 
-export function Hero({ sanityData }: Props) {
-  const slides = sanityData?.slides?.length ? sanityData.slides : staticSlides;
+export function Hero({ sanityData, images }: Props) {
+  const slides = sanityData?.slides?.length
+    ? sanityData.slides
+    : [
+        {
+          url: images?.hero?.url ?? imageSet.hero,
+          alt: images?.hero?.alt ?? "Rasvaad Catering",
+        },
+        {
+          url: images?.workA?.url ?? imageSet.workA,
+          alt: images?.workA?.alt ?? "Rasvaad Catering",
+        },
+        {
+          url: images?.workB?.url ?? imageSet.workB,
+          alt: images?.workB?.alt ?? "Rasvaad Catering",
+        },
+      ];
   const stats = sanityData?.stats?.length ? sanityData.stats : heroStats;
   const headline =
     sanityData?.headline ?? "Best Catering Services in Surat & Navsari";
@@ -131,7 +141,9 @@ export function Hero({ sanityData }: Props) {
               className={`${i === 2 ? "col-span-2 md:col-span-1" : ""} group rounded-[0.9rem] bg-black/18 p-2.5 sm:rounded-none sm:bg-transparent sm:p-0`}
             >
               <div className="flex items-center gap-2.5 sm:gap-3">
-                <span className={`${stat.value.length > 8 ? "sm:text-2xl" : "sm:text-3xl"} text-[1.42rem] font-black leading-none text-white transition-colors duration-500 group-hover:text-secondary whitespace-nowrap`}>
+                <span
+                  className={`${stat.value.length > 8 ? "sm:text-2xl" : "sm:text-3xl"} text-[1.42rem] font-black leading-none text-white transition-colors duration-500 group-hover:text-secondary whitespace-nowrap`}
+                >
                   {typeof stat.value === "string" &&
                   stat.value.includes("+") ? (
                     <Counter value={stat.value} />

@@ -21,18 +21,27 @@ import {
   getFaqs,
   getBlogPosts,
   getSectionMap,
+  getSiteImages,
 } from "@/lib/sanity";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const [siteSettings, heroData] = await Promise.all([getSiteSettings(), getHero()]);
+  const [siteSettings, heroData] = await Promise.all([
+    getSiteSettings(),
+    getHero(),
+  ]);
 
   return {
-    title: heroData?.seoTitle ?? siteSettings?.seoTitle ?? "Best Catering Services in Surat & Navsari | Wedding Caterers",
+    title:
+      heroData?.seoTitle ??
+      siteSettings?.seoTitle ??
+      "Best Catering Services in Surat & Navsari | Wedding Caterers",
     description:
       heroData?.seoDescription ??
       siteSettings?.seoDescription ??
       "Looking for catering services in Surat & Navsari? We provide premium wedding, corporate & event catering with customized menus and professional service.",
-    keywords: heroData?.keywords?.length ? heroData.keywords : siteSettings?.keywords ?? undefined,
+    keywords: heroData?.keywords?.length
+      ? heroData.keywords
+      : (siteSettings?.keywords ?? undefined),
     alternates: { canonical: "/" },
   };
 }
@@ -50,6 +59,7 @@ export default async function Home() {
     faqData,
     blogData,
     sections,
+    siteImages,
   ] = await Promise.all([
     getSiteSettings(),
     getHero(),
@@ -61,19 +71,35 @@ export default async function Home() {
     getFaqs(),
     getBlogPosts(),
     getSectionMap(),
+    getSiteImages(),
   ]);
 
   return (
     <>
       <Header sanityData={siteSettings} />
       <main>
-        <Hero sanityData={heroData} />
-        <About sanityData={aboutData} />
+        <Hero sanityData={heroData} images={siteImages} />
+        <About sanityData={aboutData} images={siteImages} />
         <Services sanityData={servicesData} sectionData={sections.services} />
-        <Process sanityData={processData} sectionData={sections.process} />
-        <Gallery sanityData={galleryData} sectionData={sections.gallery} />
-        <Testimonials sanityData={testimonialData} sectionData={sections.testimonials} />
-        <FAQ sanityData={faqData} sectionData={sections.faq} />
+        <Process
+          sanityData={processData}
+          sectionData={sections.process}
+          images={siteImages}
+        />
+        <Gallery
+          sanityData={galleryData}
+          sectionData={sections.gallery}
+          images={siteImages}
+        />
+        <Testimonials
+          sanityData={testimonialData}
+          sectionData={sections.testimonials}
+        />
+        <FAQ
+          sanityData={faqData}
+          sectionData={sections.faq}
+          images={siteImages}
+        />
         <Blog sanityData={blogData} limit={3} sectionData={sections.blog} />
         <Contact sanityData={siteSettings} sectionData={sections.contact} />
       </main>

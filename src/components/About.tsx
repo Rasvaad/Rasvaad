@@ -1,14 +1,16 @@
 import Image from "next/image";
 import { imageSet } from "@/lib/content";
 import { MotionItem, RevealText } from "@/components/Motion";
-import type { SanityAbout } from "@/lib/sanity";
+import type { SanityAbout, SanitySiteImages } from "@/lib/sanity";
 
 interface Props {
   sanityData?: SanityAbout | null;
+  images?: SanitySiteImages | null;
 }
 
-export function About({ sanityData }: Props) {
-  const img = sanityData?.imageUrl ?? imageSet.about;
+export function About({ sanityData, images }: Props) {
+  const img = sanityData?.imageUrl ?? images?.about?.url ?? imageSet.about;
+  const imgAlt = images?.about?.alt ?? "Rasvaad Catering Team";
   const eyebrow = sanityData?.eyebrow ?? "Who We Are";
   const headline =
     sanityData?.headline ?? "Leading Catering Company in Surat & Navsari";
@@ -31,7 +33,10 @@ export function About({ sanityData }: Props) {
         "Professional & trained service staff",
       ];
   return (
-    <section id="about" className="relative overflow-hidden bg-cream py-16 sm:py-24 lg:py-28 xl:py-32">
+    <section
+      id="about"
+      className="relative overflow-hidden bg-cream py-16 sm:py-24 lg:py-28 xl:py-32"
+    >
       {/* Subtle decorative elements */}
       <div className="absolute -left-20 top-40 h-80 w-80 rounded-full bg-primary/5 blur-3xl" />
       <div className="absolute -right-20 bottom-40 h-80 w-80 rounded-full bg-secondary/10 blur-3xl" />
@@ -48,7 +53,7 @@ export function About({ sanityData }: Props) {
             <div className="relative aspect-[5/4] overflow-hidden rounded-[28px] shadow-2xl sm:aspect-[4/5] sm:rounded-[44px] lg:max-h-[720px] lg:rounded-[42px] xl:max-h-[760px]">
               <Image
                 src={img}
-                alt="Rasvaad Catering Team"
+                alt={imgAlt}
                 fill
                 unoptimized
                 className="object-cover transition-transform duration-1000 hover:scale-110"
@@ -95,9 +100,14 @@ export function About({ sanityData }: Props) {
             </div>
             <div className="mt-7 grid gap-3 sm:mt-12 sm:space-y-6 lg:mt-8 lg:space-y-4">
               {highlights.map((h, idx) => (
-                <div key={idx} className="flex items-center gap-3 rounded-2xl bg-white/55 p-3 sm:gap-4 sm:bg-transparent sm:p-0">
+                <div
+                  key={idx}
+                  className="flex items-center gap-3 rounded-2xl bg-white/55 p-3 sm:gap-4 sm:bg-transparent sm:p-0"
+                >
                   <div className="h-2 w-2 rounded-full bg-secondary" />
-                  <p className="text-sm font-bold text-charcoal sm:text-lg">{h}</p>
+                  <p className="text-sm font-bold text-charcoal sm:text-lg">
+                    {h}
+                  </p>
                 </div>
               ))}
             </div>

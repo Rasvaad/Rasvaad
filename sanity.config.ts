@@ -2,7 +2,12 @@ import { defineConfig } from "sanity";
 import { structureTool, type StructureResolver } from "sanity/structure";
 import { schemaTypes } from "./src/sanity/schemaTypes";
 
-const singletonTypes = new Set(["siteSettings", "heroSection", "aboutSection"]);
+const singletonTypes = new Set([
+  "siteSettings",
+  "siteImages",
+  "heroSection",
+  "aboutSection",
+]);
 
 const structure: StructureResolver = (S) =>
   S.list()
@@ -11,15 +16,25 @@ const structure: StructureResolver = (S) =>
       S.listItem()
         .title("Site Settings")
         .id("siteSettings")
-        .child(S.document().schemaType("siteSettings").documentId("siteSettings")),
+        .child(
+          S.document().schemaType("siteSettings").documentId("siteSettings"),
+        ),
       S.listItem()
         .title("Hero Section")
         .id("heroSection")
-        .child(S.document().schemaType("heroSection").documentId("heroSection")),
+        .child(
+          S.document().schemaType("heroSection").documentId("heroSection"),
+        ),
       S.listItem()
         .title("About Section")
         .id("aboutSection")
-        .child(S.document().schemaType("aboutSection").documentId("aboutSection")),
+        .child(
+          S.document().schemaType("aboutSection").documentId("aboutSection"),
+        ),
+      S.listItem()
+        .title("Site Images")
+        .id("siteImages")
+        .child(S.document().schemaType("siteImages").documentId("siteImages")),
       S.divider(),
       ...S.documentTypeListItems().filter((item) => {
         const id = item.getId();

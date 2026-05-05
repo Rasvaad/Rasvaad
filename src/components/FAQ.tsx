@@ -5,29 +5,37 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { faqs, imageSet } from "@/lib/content";
 import { MotionBlock } from "@/components/Motion";
-import type { SanityFaq, SanitySection } from "@/lib/sanity";
+import type { SanityFaq, SanitySection, SanitySiteImages } from "@/lib/sanity";
 
 interface Props {
   sanityData?: SanityFaq[] | null;
   sectionData?: SanitySection | null;
+  images?: SanitySiteImages | null;
 }
 
-export function FAQ({ sanityData, sectionData }: Props) {
+export function FAQ({ sanityData, sectionData, images }: Props) {
   const items = sanityData?.length ? sanityData : faqs;
   const eyebrow = sectionData?.eyebrow ?? "Common Queries";
   const title = sectionData?.title ?? "Frequently";
   const highlight = sectionData?.highlight ?? "Asked";
   const suffix = sectionData?.secondaryText ?? "Questions";
-  const imageUrl = sectionData?.imageUrl ?? imageSet.feature;
+  const imageUrl =
+    sectionData?.imageUrl ?? images?.feature?.url ?? imageSet.feature;
   const imageAlt =
-    sectionData?.imageAlt ?? "Catering food presentation with colorful appetizers";
+    sectionData?.imageAlt ??
+    images?.feature?.alt ??
+    "Catering food presentation with colorful appetizers";
   const calloutTitle = sectionData?.trustLine ?? "Need more info?";
   const calloutText =
-    sectionData?.description ?? "We're here to help you plan the perfect event.";
+    sectionData?.description ??
+    "We're here to help you plan the perfect event.";
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="relative overflow-hidden bg-white py-12 sm:py-24 lg:py-32">
+    <section
+      id="faq"
+      className="relative overflow-hidden bg-white py-12 sm:py-24 lg:py-32"
+    >
       <div className="section-shell">
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:gap-16">
           <div>
@@ -39,7 +47,8 @@ export function FAQ({ sanityData, sectionData }: Props) {
                 </p>
               </div>
               <h2 className="mt-5 font-serif text-[2rem] font-black leading-tight text-charcoal sm:mt-6 sm:text-4xl md:text-5xl">
-                {title} <span className="text-primary italic">{highlight}</span> {suffix}
+                {title} <span className="text-primary italic">{highlight}</span>{" "}
+                {suffix}
               </h2>
             </MotionBlock>
 
@@ -48,8 +57,8 @@ export function FAQ({ sanityData, sectionData }: Props) {
                 <div
                   key={faq.question}
                   className={`overflow-hidden rounded-3xl transition-all duration-500 ${
-                    open === index 
-                      ? "bg-primary text-white shadow-xl shadow-primary/10" 
+                    open === index
+                      ? "bg-primary text-white shadow-xl shadow-primary/10"
                       : "bg-cream text-charcoal hover:bg-gray-100"
                   }`}
                 >
@@ -59,7 +68,9 @@ export function FAQ({ sanityData, sectionData }: Props) {
                     className="flex w-full items-center justify-between gap-4 px-4 py-3.5 text-left text-sm font-black sm:px-6 sm:py-5 sm:text-lg"
                   >
                     {faq.question}
-                    <span className={`text-xl transition-transform duration-500 ${open === index ? "rotate-180" : ""}`}>
+                    <span
+                      className={`text-xl transition-transform duration-500 ${open === index ? "rotate-180" : ""}`}
+                    >
                       ↓
                     </span>
                   </button>
@@ -77,7 +88,6 @@ export function FAQ({ sanityData, sectionData }: Props) {
                           </p>
                         </div>
                       </motion.div>
-
                     )}
                   </AnimatePresence>
                 </div>
@@ -98,7 +108,9 @@ export function FAQ({ sanityData, sectionData }: Props) {
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
               <div className="glass-morphism absolute bottom-5 left-5 right-5 rounded-2xl p-4 text-charcoal sm:bottom-10 sm:left-10 sm:right-10 sm:rounded-3xl sm:p-6">
-                <p className="font-serif text-xl font-bold italic text-primary">{calloutTitle}</p>
+                <p className="font-serif text-xl font-bold italic text-primary">
+                  {calloutTitle}
+                </p>
                 <p className="mt-1 text-sm text-muted">{calloutText}</p>
               </div>
             </div>

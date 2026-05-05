@@ -11,7 +11,8 @@ function getClient(): SanityClient | null {
       dataset: process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production",
       apiVersion: "2026-04-25",
       token: process.env.SANITY_API_TOKEN,
-      useCdn: !process.env.SANITY_API_TOKEN && process.env.NODE_ENV === "production",
+      useCdn:
+        !process.env.SANITY_API_TOKEN && process.env.NODE_ENV === "production",
       timeout: 8000,
       maxRetries: 0,
     });
@@ -19,13 +20,16 @@ function getClient(): SanityClient | null {
   return _client;
 }
 
-async function sanityFetch<T>(query: string, params?: Record<string, unknown>): Promise<T | null> {
+async function sanityFetch<T>(
+  query: string,
+  params?: Record<string, unknown>,
+): Promise<T | null> {
   const client = getClient();
   if (!client) return null;
   try {
-    return await client.fetch<T>(query, params ?? {}, { 
+    return await client.fetch<T>(query, params ?? {}, {
       timeout: 8000,
-      signal: AbortSignal.timeout(8000)
+      signal: AbortSignal.timeout(8000),
     });
   } catch (e) {
     // Only log a simple error message, not the full error object
@@ -42,6 +46,16 @@ async function sanityFetch<T>(query: string, params?: Record<string, unknown>): 
 
 export type SanityImage = { url: string; alt?: string };
 
+export type SanitySiteImages = {
+  hero: SanityImage | null;
+  about: SanityImage | null;
+  workA: SanityImage | null;
+  workB: SanityImage | null;
+  process: SanityImage | null;
+  feature: SanityImage | null;
+  cta: SanityImage | null;
+};
+
 export type SanitySeo = {
   seoTitle?: string | null;
   seoDescription?: string | null;
@@ -57,7 +71,12 @@ export type SanitySiteSettings = {
   address?: string | null;
   googleMap?: string | null;
   whatsappMessage: string;
-  socials: { facebook?: string; instagram?: string; twitter?: string; linkedin?: string };
+  socials: {
+    facebook?: string;
+    instagram?: string;
+    twitter?: string;
+    linkedin?: string;
+  };
   navItems: { label: string; href: string }[];
   footerTagline: string;
   footerHeading?: string | null;
@@ -69,6 +88,19 @@ export type SanitySiteSettings = {
   legalLinks?: { label: string; href: string }[] | null;
   ogImageUrl: string | null;
 } & SanitySeo;
+
+export const getSiteImages = () =>
+  sanityFetch<SanitySiteImages>(
+    `*[_type == "siteImages"][0]{
+      "hero": {"url": heroImage.asset->url, "alt": heroImageAlt},
+      "about": {"url": aboutImage.asset->url, "alt": aboutImageAlt},
+      "workA": {"url": workAImage.asset->url, "alt": workAImageAlt},
+      "workB": {"url": workBImage.asset->url, "alt": workBImageAlt},
+      "process": {"url": processImage.asset->url, "alt": processImageAlt},
+      "feature": {"url": featureImage.asset->url, "alt": featureImageAlt},
+      "cta": {"url": ctaImage.asset->url, "alt": ctaImageAlt}
+    }`,
+  );
 
 export type SanityHero = {
   eyebrow?: string | null;
@@ -259,7 +291,9 @@ export const getSections = () =>
 
 export const getSectionMap = async () => {
   const sections = await getSections();
-  return Object.fromEntries((sections ?? []).map((section) => [section.key, section]));
+  return Object.fromEntries(
+    (sections ?? []).map((section) => [section.key, section]),
+  );
 };
 
 export const getGalleryItems = () =>

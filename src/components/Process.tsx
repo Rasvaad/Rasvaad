@@ -5,18 +5,26 @@ import { motion, useScroll } from "framer-motion";
 import Image from "next/image";
 import { imageSet, processSteps as staticSteps } from "@/lib/content";
 import { ProcessCard } from "./ProcessCard";
-import type { SanityProcessStep, SanitySection } from "@/lib/sanity";
+import type {
+  SanityProcessStep,
+  SanitySection,
+  SanitySiteImages,
+} from "@/lib/sanity";
 
 interface Props {
   sanityData?: SanityProcessStep[] | null;
   sectionData?: SanitySection | null;
+  images?: SanitySiteImages | null;
 }
 
-const IMAGES = [imageSet.process, imageSet.feature, imageSet.workA];
-
-export function Process({ sanityData, sectionData }: Props) {
+export function Process({ sanityData, sectionData, images }: Props) {
   const steps = sanityData?.length ? sanityData : staticSteps;
   const containerRef = useRef<HTMLDivElement>(null);
+  const fallbackImages = [
+    images?.process?.url ?? imageSet.process,
+    images?.feature?.url ?? imageSet.feature,
+    images?.workA?.url ?? imageSet.workA,
+  ];
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -38,7 +46,7 @@ export function Process({ sanityData, sectionData }: Props) {
                 step={step}
                 index={index}
                 total={steps.length}
-                fallbackImage={IMAGES[index % IMAGES.length]}
+                fallbackImage={fallbackImages[index % fallbackImages.length]}
               />
             ))}
           </div>
@@ -63,7 +71,7 @@ export function Process({ sanityData, sectionData }: Props) {
                 index={index}
                 total={steps.length}
                 scrollYProgress={scrollYProgress}
-                fallbackImage={IMAGES[index % IMAGES.length]}
+                fallbackImage={fallbackImages[index % fallbackImages.length]}
               />
             ))}
           </div>
@@ -120,7 +128,12 @@ function MobileProcessCard({
   total,
   fallbackImage,
 }: {
-  step: { title: string; text: string; imageUrl?: string | null; imageAlt?: string | null };
+  step: {
+    title: string;
+    text: string;
+    imageUrl?: string | null;
+    imageAlt?: string | null;
+  };
   index: number;
   total: number;
   fallbackImage: string;
@@ -133,7 +146,11 @@ function MobileProcessCard({
       initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.55, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+      transition={{
+        duration: 0.55,
+        delay: index * 0.08,
+        ease: [0.16, 1, 0.3, 1],
+      }}
       className="relative ml-4 overflow-hidden rounded-[26px] border border-black/5 bg-white p-4 shadow-[0_18px_50px_-28px_rgba(0,0,0,0.45)]"
     >
       <div className="absolute left-0 top-8 h-3 w-3 -translate-x-[1.35rem] rounded-full border-2 border-[#F8F5F0] bg-primary shadow-[0_0_0_5px_rgba(122,30,30,0.12)]" />
@@ -149,7 +166,8 @@ function MobileProcessCard({
           />
           <div className="absolute inset-0 bg-linear-to-t from-black/45 via-transparent to-transparent" />
           <div className="absolute bottom-3 left-3 rounded-full bg-white/90 px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-primary">
-            {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+            {String(index + 1).padStart(2, "0")} /{" "}
+            {String(total).padStart(2, "0")}
           </div>
         </div>
 
@@ -160,9 +178,7 @@ function MobileProcessCard({
           <h3 className="mt-2 font-serif text-2xl font-black leading-tight text-charcoal">
             {step.title}
           </h3>
-          <p className="mt-3 text-sm leading-relaxed text-muted">
-            {step.text}
-          </p>
+          <p className="mt-3 text-sm leading-relaxed text-muted">{step.text}</p>
         </div>
       </div>
     </motion.article>

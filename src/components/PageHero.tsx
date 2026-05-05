@@ -5,6 +5,7 @@ import Link from "next/link";
 import { imageSet, phoneNumber, whatsappHref } from "@/lib/content";
 import { MotionItem, RevealText } from "@/components/Motion";
 import { Counter } from "@/components/Counter";
+import type { SanitySiteImages } from "@/lib/sanity";
 
 type PageHeroProps = {
   eyebrow: string;
@@ -14,6 +15,7 @@ type PageHeroProps = {
   trustLine?: string;
   primaryCta?: { label: string; href: string };
   secondaryCta?: { label: string; href: string };
+  images?: SanitySiteImages | null;
 };
 
 function HeroLink({
@@ -72,13 +74,14 @@ export function PageHero({
   trustLine,
   primaryCta,
   secondaryCta,
+  images,
 }: PageHeroProps) {
   return (
     <section className="relative min-h-[78svh] overflow-hidden bg-charcoal text-white sm:min-h-[88svh]">
       <div className="absolute inset-0">
         <Image
-          src={imageSet.hero}
-          alt="Premium catering background"
+          src={images?.hero?.url ?? imageSet.hero}
+          alt={images?.hero?.alt ?? "Premium catering background"}
           fill
           priority
           sizes="100vw"

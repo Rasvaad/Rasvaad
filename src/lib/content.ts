@@ -18,9 +18,11 @@ export const services = [
     title: "Wedding Catering Services",
     location: "Surat & Navsari",
     text: "Make your wedding truly grand with our premium wedding catering services. From traditional Gujarati food to modern cuisines, we design menus that match your culture and taste.",
-    hinglish: "Aapki shaadi ke liye perfect taste + presentation = unforgettable experience.",
+    hinglish:
+      "Aapki shaadi ke liye perfect taste + presentation = unforgettable experience.",
     badge: "WD",
-    image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800&q=80",
   },
   {
     title: "Corporate Catering Services",
@@ -28,7 +30,8 @@ export const services = [
     text: "Professional corporate catering for meetings, conferences, and office events. Reliable service, hygienic food, and timely delivery guaranteed.",
     hinglish: "Office events ke liye tension-free catering solution.",
     badge: "CO",
-    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80",
   },
   {
     title: "Private Party Catering",
@@ -36,28 +39,33 @@ export const services = [
     text: "Celebrate birthdays, anniversaries, and house parties with customized catering services designed for your guests.",
     hinglish: "Har party ko banaaye special with delicious food.",
     badge: "PP",
-    image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=800&q=80",
   },
   {
     title: "Buffet & Live Catering",
     text: "Enhance your event with buffet setups and live food counters that engage and impress guests.",
     hinglish: "Live counters jo guests ko wow kar de.",
     badge: "BL",
-    image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1662982693758-f69fcb81e7d2?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     title: "Custom Menu Catering",
     text: "Personalized catering services designed around your taste, event theme, and guest preferences. From traditional flavors to modern cuisines, every menu is crafted to match your vision.",
-    hinglish: "Aapke taste aur event ke hisaab se pura menu design kiya jata hai.",
+    hinglish:
+      "Aapke taste aur event ke hisaab se pura menu design kiya jata hai.",
     badge: "CM",
-    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80",
   },
   {
     title: "Luxury Catering Services",
     text: "Exclusive catering solutions for high-end events, destination weddings, and premium celebrations.",
     hinglish: "Premium events ke liye luxury catering experience.",
     badge: "LX",
-    image: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=800&q=80",
   },
 ];
 
@@ -94,15 +102,18 @@ export const processSteps = [
 export const faqs = [
   {
     question: "What areas do you provide catering services in?",
-    answer: "We provide catering services in Surat, Navsari, and nearby locations.",
+    answer:
+      "We provide catering services in Surat, Navsari, and nearby locations.",
   },
   {
     question: "What is the cost of catering services in Surat?",
-    answer: "Catering cost depends on menu, guest count, and event type. Contact us for a customized quote.",
+    answer:
+      "Catering cost depends on menu, guest count, and event type. Contact us for a customized quote.",
   },
   {
     question: "Do you provide custom menu catering services?",
-    answer: "Yes, we design personalized catering menus around your taste, event theme, and guest preferences.",
+    answer:
+      "Yes, we design personalized catering menus around your taste, event theme, and guest preferences.",
   },
 ];
 
@@ -161,8 +172,7 @@ export const galleryCards = [
 ];
 
 export const imageSet = {
-  hero:
-    "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=1800&q=85",
+  hero: "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=1800&q=85",
   about:
     "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=85",
   workA:
@@ -172,7 +182,6 @@ export const imageSet = {
   process:
     "https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1200&q=85",
   feature:
-    "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1400&q=85",
-  cta:
-    "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=1600&q=85",
+    "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1200&q=85",
+  cta: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=1600&q=85",
 };

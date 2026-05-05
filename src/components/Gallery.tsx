@@ -2,21 +2,32 @@ import Image from "next/image";
 import Link from "next/link";
 import { imageSet } from "@/lib/content";
 import { MotionBlock } from "@/components/Motion";
-import type { SanityGalleryItem, SanitySection } from "@/lib/sanity";
+import type {
+  SanityGalleryItem,
+  SanitySection,
+  SanitySiteImages,
+} from "@/lib/sanity";
 
 interface Props {
   sanityData?: SanityGalleryItem[] | null;
   sectionData?: SanitySection | null;
+  images?: SanitySiteImages | null;
 }
 
-export function Gallery({ sanityData, sectionData }: Props) {
+export function Gallery({ sanityData, sectionData, images }: Props) {
   // Use Sanity images if available, otherwise fall back to static imageSet
-  const imgA = sanityData?.[0]?.imageUrl ?? imageSet.workA;
-  const imgB = sanityData?.[1]?.imageUrl ?? imageSet.workB;
+  const imgA =
+    sanityData?.[0]?.imageUrl ?? images?.workA?.url ?? imageSet.workA;
+  const imgB =
+    sanityData?.[1]?.imageUrl ?? images?.workB?.url ?? imageSet.workB;
   const altA =
-    sanityData?.[0]?.title ?? "Decorated dining setup for event catering";
+    sanityData?.[0]?.title ??
+    images?.workA?.alt ??
+    "Decorated dining setup for event catering";
   const altB =
-    sanityData?.[1]?.title ?? "Catered event table with fresh food and guests";
+    sanityData?.[1]?.title ??
+    images?.workB?.alt ??
+    "Catered event table with fresh food and guests";
   const eyebrow = sectionData?.eyebrow ?? "Our Projects";
   const title = sectionData?.title ?? "Creating Memorable";
   const highlight = sectionData?.highlight ?? "Catering Experiences";
@@ -24,7 +35,8 @@ export function Gallery({ sanityData, sectionData }: Props) {
     sectionData?.description ??
     "From intimate gatherings to large-scale weddings, we have successfully delivered catering services across Surat and Navsari. Our attention to detail, food quality, and service excellence make us a trusted catering partner.";
   const topCallout = sectionData?.secondaryText ?? "Attention to every detail.";
-  const bottomCallout = sectionData?.trustLine ?? "Premium Taste & Presentation.";
+  const bottomCallout =
+    sectionData?.trustLine ?? "Premium Taste & Presentation.";
   const bullets = sectionData?.bullets?.length
     ? sectionData.bullets
     : [
@@ -39,7 +51,10 @@ export function Gallery({ sanityData, sectionData }: Props) {
   const ctaHref = sectionData?.ctaHref ?? "/work";
 
   return (
-    <section id="work" className="relative overflow-hidden bg-white py-16 sm:py-24 lg:py-32">
+    <section
+      id="work"
+      className="relative overflow-hidden bg-white py-16 sm:py-24 lg:py-32"
+    >
       <div className="section-shell">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
           <MotionBlock className="grid grid-cols-2 gap-3 md:gap-8">
@@ -87,8 +102,7 @@ export function Gallery({ sanityData, sectionData }: Props) {
               </p>
             </div>
             <h2 className="mt-5 font-serif text-[2rem] font-black leading-tight text-charcoal sm:mt-6 sm:text-4xl md:text-5xl">
-              {title}{" "}
-              <span className="text-primary italic">{highlight}</span>
+              {title} <span className="text-primary italic">{highlight}</span>
             </h2>
             <p className="mt-5 text-base font-light leading-relaxed text-muted sm:mt-8 sm:text-lg">
               {description}
@@ -98,7 +112,9 @@ export function Gallery({ sanityData, sectionData }: Props) {
               {bullets.map((point, idx) => (
                 <div key={idx} className="flex items-center gap-3">
                   <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                  <p className="text-sm font-bold text-charcoal sm:text-base">{point}</p>
+                  <p className="text-sm font-bold text-charcoal sm:text-base">
+                    {point}
+                  </p>
                 </div>
               ))}
             </div>
