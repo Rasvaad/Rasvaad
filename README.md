@@ -1,36 +1,52 @@
-# Rasvaad — Catering Services Website
+# Rasvaad - Catering Services Website
 
-A modern, SEO-optimized marketing website for **Rasvaad**, a professional catering company serving Surat & Navsari, Gujarat. Built with Next.js 16, Tailwind CSS, Framer Motion, and Sanity CMS.
-
----
+Rasvaad is a modern marketing website for a catering company serving Surat and Navsari, Gujarat. It is built with Next.js, Tailwind CSS, Framer Motion, Sanity CMS, and Nodemailer.
 
 ## Tech Stack
 
-- **Framework** — Next.js 16 (App Router, Turbopack)
-- **Styling** — Tailwind CSS v4
-- **Animations** — Framer Motion
-- **CMS** — Sanity v3 (for gallery & testimonials)
-- **Email** — Nodemailer (contact form)
-- **Language** — TypeScript
-
----
+- Next.js 16 with the App Router
+- Tailwind CSS v4
+- Framer Motion for animations
+- Sanity v3 for content management
+- Nodemailer for contact form email delivery
+- TypeScript
 
 ## Features
 
-- Fully responsive landing page with hero, services, process, gallery, testimonials, blog, and contact sections
-- Page transitions via `next-view-transitions`
-- Sanity Studio embedded at `/studio` for content management
-- Contact form with server-side email delivery
-- SEO-ready with structured metadata and location-specific pages (`/catering-services-surat`, `/catering-services-navsari`)
+- Responsive landing page with hero, about, services, process, gallery, testimonials, FAQ, blog, and contact sections
+- Location-specific pages for Surat and Navsari
+- Embedded Sanity Studio at `/studio`
+- Server-side contact form email delivery through Gmail
+- SEO metadata and local business structured data
+- Page transitions with `next-view-transitions`
 
----
+## Environment Variables
+
+Create a `.env.local` file in the project root using the same keys as `.env.local.example`:
+
+```env
+NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id_here
+NEXT_PUBLIC_SANITY_DATASET=production
+SANITY_API_TOKEN=your_viewer_token_here
+
+EMAIL_USER=your.gmail@gmail.com
+EMAIL_PASS=your_16_char_app_password
+EMAIL_TO=rasvaad@gmail.com
+```
+
+Notes:
+
+- `NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET` are required for the site and Studio to load Sanity content.
+- `SANITY_API_TOKEN` is used for server-side Sanity fetches.
+- `EMAIL_USER` and `EMAIL_PASS` must be a Gmail address plus an App Password, not your normal Gmail password.
+- `EMAIL_TO` is optional and defaults to `rasvaad@gmail.com` if omitted.
 
 ## Getting Started
 
 ### Prerequisites
 
 - Node.js 18+
-- pnpm (or npm/yarn)
+- pnpm
 
 ### Install dependencies
 
@@ -38,78 +54,56 @@ A modern, SEO-optimized marketing website for **Rasvaad**, a professional cateri
 pnpm install
 ```
 
-### Environment variables
-
-Create a `.env.local` file in the root:
-
-```env
-NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
-NEXT_PUBLIC_SANITY_DATASET=production
-SANITY_API_TOKEN=your_token
-
-SMTP_HOST=your_smtp_host
-SMTP_PORT=587
-SMTP_USER=your_email
-SMTP_PASS=your_password
-CONTACT_TO_EMAIL=rasvaad@gmail.com
-```
-
-### Run the dev server
+### Run the development server
 
 ```bash
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the site.
+Open http://localhost:3000 in your browser.
 
-### Build for production
+### Build and start production
 
 ```bash
 pnpm build
 pnpm start
 ```
 
----
+### Lint the project
+
+```bash
+pnpm lint
+```
 
 ## Project Structure
 
-```
+```text
 src/
-├── app/                  # Next.js App Router pages
-│   ├── page.tsx          # Home page
+├── app/
+│   ├── page.tsx
 │   ├── about/
-│   ├── services/
-│   ├── work/
 │   ├── blog/
-│   ├── faq/
-│   ├── contact/
-│   ├── catering-services-surat/
 │   ├── catering-services-navsari/
-│   ├── api/contact/      # Contact form API route
-│   └── studio/           # Sanity Studio
-├── components/           # UI components
-├── lib/                  # Content, animations, SEO, Sanity client
-└── sanity/               # Sanity schema types
+│   ├── catering-services-surat/
+│   ├── contact/
+│   ├── faq/
+│   ├── services/
+│   ├── studio/
+│   └── api/contact/
+├── components/
+├── lib/
+└── sanity/
 ```
-
----
 
 ## Content Management
 
-Sanity Studio is available at `/studio`. It manages:
-
-- **Gallery items** — event photos and labels
-- **Testimonials** — client reviews
-
-To configure Sanity, update `sanity.config.ts` with your project ID and dataset.
-
----
+Sanity Studio is available at `/studio`. It manages the site settings, hero, about section, images, gallery items, testimonials, blog content, FAQs, services, and other structured content defined under `src/sanity/schemaTypes`.
 
 ## Contact
 
-**Rasvaad Catering**
+Rasvaad Catering
+
 - Phone: +91 94084 36937
 - Email: rasvaad@gmail.com
-- WhatsApp: [Chat with us](https://wa.me/919408436937)
-- Serving: Surat & Navsari, Gujarat
-# Rasvaad
+- WhatsApp: https://wa.me/919408436937
+- Serving: Surat and Navsari, Gujarat
