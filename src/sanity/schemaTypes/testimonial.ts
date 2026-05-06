@@ -30,6 +30,13 @@ export const testimonialType = defineType({
       options: { hotspot: true },
     }),
     defineField({
+      name: "rating",
+      title: "Star Rating",
+      type: "number",
+      initialValue: 5,
+      validation: (r) => r.required().min(1).max(5),
+    }),
+    defineField({
       name: "order",
       title: "Display Order",
       type: "number",

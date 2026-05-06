@@ -207,6 +207,7 @@ export type SanityTestimonial = {
   role: string;
   quote: string;
   avatarUrl: string | null;
+  rating?: number;
 };
 
 export type SanityFaq = {
@@ -307,7 +308,7 @@ export const getGalleryItems = () =>
 export const getTestimonials = () =>
   sanityFetch<SanityTestimonial[]>(
     `*[_type == "testimonial"] | order(order asc){
-      _id, name, role, quote,
+      _id, name, role, quote, rating,
       "avatarUrl": avatar.asset->url
     }`,
   );

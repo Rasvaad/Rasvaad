@@ -1,7 +1,7 @@
 export const phoneNumber = "9408436937";
 export const whatsappHref =
   "https://wa.me/919408436937?text=Hi%20Rasvaad%20Catering,%20I'm%20interested%20in%20your%20services%20for%20an%20upcoming%20event.%20Could%20you%20please%20provide%20more%20details?";
-export const emailAddress = "rasvaad@gmail.com";
+export const emailAddress = "info@rasvaad.in";
 
 export const navItems = [
   { label: "Home", href: "/" },
@@ -137,19 +137,22 @@ export const testimonials = [
     name: "Amit Patel",
     role: "Wedding Client",
     quote:
-      "Rasvaad managed the complete wedding menu beautifully. Food quality, service and presentation were excellent.",
+      "Rasvaad managed the complete wedding menu beautifully. Food quality service and presentation were excellent.",
+    rating: 4,
   },
   {
     name: "Nirali Shah",
     role: "Corporate Event",
     quote:
       "The team handled our office event on time with clean setup, great taste and professional staff.",
+    rating: 5,
   },
   {
     name: "Mehul Desai",
     role: "Private Party",
     quote:
       "Customized menu options made the party feel personal. Guests loved the live counters.",
+    rating: 5,
   },
 ];
 
