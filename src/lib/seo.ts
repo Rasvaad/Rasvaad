@@ -32,6 +32,10 @@ export function buildBaseMetadata(
 
   return {
     metadataBase: new URL(siteUrl),
+    icons: {
+      icon: "/icon.png",
+      shortcut: "/favicon.ico",
+    },
     title: {
       default: title,
       template: `%s | ${brandName}`,
